@@ -56,6 +56,33 @@ public class Converter {
             
             // INSERT YOUR CODE HERE
             
+            JSONArray colHeaders = new JSONArray();
+            JSONArray rowHeaders = new JSONArray();        
+            JSONArray data = new JSONArray();
+            JSONArray dataRow;
+            String[] csvRow;
+            
+            csvRow = iterator.next();
+            
+            for (int i = 0; i < csvRow.length; i++){
+                colHeaders.add(csvRow[i]); 
+            }
+            
+            while(iterator.hasNext()){
+                csvRow = iterator.next();
+                dataRow = new JSONArray();
+                rowHeaders.add(csvRow[0]);
+                for (int i = 1; i < csvRow.length; ++i){
+                    dataRow.add(Integer.parseInt(csvRow[i]));                            
+                }
+                data.add(dataRow);
+            }                           
+            
+            jsonObject.put("colHeaders", colHeaders);
+            jsonObject.put("rowHeaders", rowHeaders);
+            jsonObject.put("data", data);
+            
+            results = JSONValue.toJSONString(jsonObject);
         }
         
         catch(IOException e) { return e.toString(); }
@@ -78,6 +105,11 @@ public class Converter {
             
             // INSERT YOUR CODE HERE
             
+            ArrayList<String[]> csvData = new ArrayList<>();
+            
+            String[] colHeaders;                              
+            
+                       
         }
         
         catch(ParseException e) { return e.toString(); }
